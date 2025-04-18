@@ -5,41 +5,16 @@
   <title>RIFZA Admin Panel - Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
-  <!-- Import SF Pro Display (Apple-like font) from CDN -->
+  <!-- Apple-like font -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/sf-pro-display@latest/index.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
   <script>
-    // Disable right-click context menu
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-
-    // Disable drag and drop of text
-    document.addEventListener('dragstart', function(e) {
-      e.preventDefault();
-    });
-
-    // Disable text selection everywhere
-    document.addEventListener('selectstart', function(e) {
-      e.preventDefault();
-    });
-
-    // Disable copy/cut/paste everywhere
-    document.addEventListener('copy', function(e) {
-      e.preventDefault();
-    });
-    document.addEventListener('cut', function(e) {
-      e.preventDefault();
-    });
-    document.addEventListener('paste', function(e) {
-      e.preventDefault();
-    });
-
-    // Disable draggable attribute on all elements
+    // Disable right-click, drag, select, copy/cut/paste
+    ['contextmenu','dragstart','selectstart','copy','cut','paste'].forEach(ev =>
+      document.addEventListener(ev, e => e.preventDefault())
+    );
     document.querySelectorAll('[draggable="true"]').forEach(el => el.setAttribute('draggable', 'false'));
-
     // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCmI5AsAKDxpfat6SJa8zQ024ERc1HdCjo",
@@ -55,45 +30,14 @@
 </head>
 <body class="login-page">
   <div class="login-container unique-login">
-    <table class="login-table">
-      <tr>
-        <td colspan="2" class="logo-cell">
-          <img src="assets/logo.png" alt="RIFZA Logo" class="logo animated-fadein" />
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <h1 class="login-title animated-slidein">RIFZA Admin Login</h1>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <p class="login-desc animated-fadein">
-            Welcome, admin! Please sign in to manage your Minecraft server.<br>
-            <span>(Only authorized users allowed)</span>
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <form id="loginForm" autocomplete="off" class="animated-popin">
-            <input type="email" id="email" placeholder="Email" required autocomplete="off" autocorrect="off" spellcheck="false" class="login-input" />
-            <input type="password" id="password" placeholder="Password" required autocomplete="off" autocorrect="off" spellcheck="false" class="login-input" />
-            <button type="submit" class="login-btn">Login</button>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <p id="error" class="error-text animated-fadein"></p>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2" class="footer-cell">
-          <span class="login-copyright animated-fadein">RIFZA Web &copy; 2025</span>
-        </td>
-      </tr>
-    </table>
+    <img src="assets/logo.png" alt="RIFZA Logo" class="logo animated-fadein" />
+    <h1 class="login-title animated-slidein">RIFZA Admin Login</h1>
+    <form id="loginForm" autocomplete="off" class="animated-popin">
+      <input type="email" id="email" placeholder="Email" required class="login-input" autocomplete="off" autocorrect="off" spellcheck="false" />
+      <input type="password" id="password" placeholder="Password" required class="login-input" autocomplete="off" autocorrect="off" spellcheck="false" />
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <p id="error" class="error-text animated-fadein"></p>
   </div>
   <script src="/js/auth.js"></script>
 </body>
