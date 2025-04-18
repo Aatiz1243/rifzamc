@@ -1,0 +1,187 @@
+html, body {
+  height: 100%;
+}
+body {
+  background: #222;
+  color: #bbb;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: grayscale(1);
+}
+#container {
+  background: #2c2c2c;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(30,30,30,0.22), 0 1.5px 6px rgba(30,30,30,0.10);
+  max-width: 700px;
+  width: 98vw;
+  min-height: 320px;
+  padding: 54px 48px 40px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 260px;
+  min-height: 220px;
+  box-sizing: border-box;
+  padding: 8vw 4vw;
+  margin: 0 auto;
+  transition: padding 0.2s, width 0.2s;
+}
+.error-code {
+  font-size: 90px;
+  font-weight: 700;
+  color: #888;
+  margin-bottom: 18px;
+  letter-spacing: 4px;
+  font-family: monospace;
+  filter: grayscale(1);
+  text-shadow: 0 2px 12px #1118;
+}
+.typewriter {
+  display: inline-block;
+  border-right: 2px solid #888;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 28px;
+  font-family: monospace;
+  color: #bbb;
+  min-height: 38px;
+  max-width: 90vw;
+  margin-bottom: 28px;
+  box-sizing: border-box;
+  animation: blink-caret 0.7s steps(1) infinite;
+  text-align: left;
+  background: transparent;
+  word-break: break-all;
+}
+@keyframes blink-caret {
+  0%, 100% { border-color: #888; }
+  50% { border-color: transparent; }
+}
+.home-btn {
+  display: inline-block;
+  background: #444;
+  color: #bbb;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 14px 38px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 2px 8px #1118;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 18px;
+  border: 1px solid #888;
+  filter: grayscale(1);
+}
+.home-btn:hover {
+  background: #333;
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+}
+.warning {
+  color: #ff5252;
+  font-size: 15px;
+  margin-top: 10px;
+  font-family: monospace;
+}
+@media (max-width: 1200px) {
+  #container {
+    max-width: 90vw;
+    padding: 40px 24px 28px 24px;
+  }
+  .error-code {
+    font-size: 60px !important;
+  }
+  .typewriter {
+    font-size: 20px !important;
+  }
+}
+@media (max-width: 900px) {
+  #container {
+    padding: 30px 8vw 24px 8vw;
+    max-width: 98vw;
+  }
+  .error-code {
+    font-size: 44px !important;
+  }
+  .typewriter {
+    font-size: 16px !important;
+  }
+}
+@media (max-width: 600px) {
+  #container {
+    padding: 18px 2vw 16px 2vw;
+    min-width: 0;
+  }
+  .error-code {
+    font-size: 28px !important;
+  }
+  .typewriter {
+    font-size: 12px !important;
+  }
+}
+/* Add angry shake and glitch styles */
+@keyframes angry-shake {
+  0% { transform: translate(0, 0) rotate(0deg);}
+  10% { transform: translate(-1px, 2px) rotate(-1deg);}
+  20% { transform: translate(2px, -2px) rotate(2deg);}
+  30% { transform: translate(-3px, 1px) rotate(-2deg);}
+  40% { transform: translate(3px, -1px) rotate(3deg);}
+  50% { transform: translate(-4px, 2px) rotate(-3deg);}
+  60% { transform: translate(4px, -2px) rotate(4deg);}
+  70% { transform: translate(-5px, 1px) rotate(-4deg);}
+  80% { transform: translate(5px, -1px) rotate(5deg);}
+  90% { transform: translate(-6px, 2px) rotate(-5deg);}
+  100% { transform: translate(0, 0) rotate(0deg);}
+}
+@keyframes glitch {
+  0% { filter: none; }
+  10% { filter: contrast(2) blur(1px) hue-rotate(20deg);}
+  20% { filter: grayscale(1) blur(2px) hue-rotate(-20deg);}
+  30% { filter: contrast(2) blur(1px) hue-rotate(90deg);}
+  40% { filter: grayscale(1) blur(2px) hue-rotate(-90deg);}
+  50% { filter: contrast(3) blur(2px) hue-rotate(180deg);}
+  60% { filter: contrast(2) blur(1px) hue-rotate(10deg);}
+  70% { filter: grayscale(1) blur(2px) hue-rotate(-10deg);}
+  80% { filter: contrast(4) blur(3px) hue-rotate(270deg);}
+  90% { filter: grayscale(1) blur(2px) hue-rotate(-270deg);}
+  100% { filter: none; }
+}
+.angry {
+  animation: angry-shake 0.18s infinite;
+}
+.glitching {
+  animation: glitch 0.13s infinite;
+  color: #fff !important;
+  background: #111 !important;
+  text-shadow:
+    2px 0 #f00, -2px 0 #0ff,
+    1px 2px #0f0, -1px -2px #00f,
+    0 0 8px #fff, 0 0 2px #f00;
+  letter-spacing: 2px;
+}
+.glitch-warning {
+  font-family: monospace;
+  font-size: 22px;
+  color: #fff;
+  background: #111;
+  padding: 12px 0;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+  text-shadow:
+    2px 0 #f00, -2px 0 #0ff,
+    1px 2px #0f0, -1px -2px #00f,
+    0 0 8px #fff, 0 0 2px #f00;
+  animation: glitch 0.13s infinite;
+  border: 2px solid #f00;
+  box-shadow: 0 0 24px #f00, 0 0 12px #0ff;
+}
