@@ -1,0 +1,36 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RIFZA Admin Panel - Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCmI5AsAKDxpfat6SJa8zQ024ERc1HdCjo",
+    authDomain: "rifzamc.firebaseapp.com",
+    projectId: "rifzamc",
+    storageBucket: "rifzamc.firebasestorage.app",
+    messagingSenderId: "271925320929",
+    appId: "1:271925320929:web:e0412bac89ceef1aaa2ba0",
+    measurementId: "G-8M37J1K835"
+  };
+  firebase.initializeApp(firebaseConfig);
+  </script>
+
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <h1>🔐 RIFZA Admin Login</h1>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p id="error" class="error-text"></p>
+  </div>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
