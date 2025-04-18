@@ -319,3 +319,42 @@ body,
 .error-text {
   font-family: 'SF Pro Display', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
+
+.login-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.logo-cell {
+  text-align: center;
+  padding-bottom: 0;
+}
+
+.footer-cell {
+  text-align: center;
+  padding-top: 18px;
+}
+
+.animated-fadein {
+  opacity: 0;
+  animation: fade-in 1s forwards;
+}
+.animated-slidein {
+  opacity: 0;
+  animation: slide-in 0.9s 0.2s forwards;
+}
+.animated-popin {
+  opacity: 0;
+  animation: pop-in 0.8s 0.4s forwards;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-24px) scale(0.98);}
+  to { opacity: 1; transform: translateY(0) scale(1);}
+}
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.92);}
+  80% { opacity: 1; transform: scale(1.04);}
+  100% { opacity: 1; transform: scale(1);}
+}

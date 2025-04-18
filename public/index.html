@@ -55,23 +55,45 @@
 </head>
 <body class="login-page">
   <div class="login-container unique-login">
-    <img src="assets/logo.png" alt="RIFZA Logo" class="logo" />
-    <h1 class="login-title">RIFZA Admin Login</h1>
-    <p class="login-desc">
-      Welcome, admin! Please sign in to manage your Minecraft server.<br>
-      <span>(Only authorized users allowed)</span>
-    </p>
-    <form id="loginForm" autocomplete="off">
-      <input type="email" id="email" placeholder="Email" required autocomplete="off" autocorrect="off" spellcheck="false" class="login-input" />
-      <input type="password" id="password" placeholder="Password" required autocomplete="off" autocorrect="off" spellcheck="false" class="login-input" />
-      <button type="submit" class="login-btn">Login</button>
-    </form>
-    <p id="error" class="error-text"></p>
-    <div class="login-footer">
-      <span>Need help? <a href="https://docs.rifzamc.com" target="_blank" rel="noopener">Docs</a> | <a href="https://discord.gg/yourdiscord" target="_blank" rel="noopener">Discord</a></span>
-      <br>
-      <span>RIFZA Web &copy; 2024</span>
-    </div>
+    <table class="login-table">
+      <tr>
+        <td colspan="2" class="logo-cell">
+          <img src="assets/logo.png" alt="RIFZA Logo" class="logo animated-fadein" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <h1 class="login-title animated-slidein">RIFZA Admin Login</h1>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <p class="login-desc animated-fadein">
+            Welcome, admin! Please sign in to manage your Minecraft server.<br>
+            <span>(Only authorized users allowed)</span>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <form id="loginForm" autocomplete="off" class="animated-popin">
+            <input type="email" id="email" placeholder="Email" required autocomplete="off" autocorrect="off" spellcheck="false" class="login-input" />
+            <input type="password" id="password" placeholder="Password" required autocomplete="off" autocorrect="off" spellcheck="false" class="login-input" />
+            <button type="submit" class="login-btn">Login</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <p id="error" class="error-text animated-fadein"></p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="footer-cell">
+          <span class="login-copyright animated-fadein">RIFZA Web &copy; 2025</span>
+        </td>
+      </tr>
+    </table>
   </div>
   <script src="/js/auth.js"></script>
 </body>
