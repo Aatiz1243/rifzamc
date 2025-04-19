@@ -2,207 +2,352 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>RIFZA Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Tailwind CSS CDN (for rapid prototyping, use local build for production) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* Custom scrollbar for sidebar */
-    ::-webkit-scrollbar { width: 8px; background: #23272b; }
-    ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
-    /* Sidebar collapse animation */
-    .sidebar-collapsed { width: 0 !important; min-width: 0 !important; overflow: hidden !important; }
-    .sidebar-expanded { width: 220px; min-width: 220px; }
-    /* Modal backdrop */
-    .modal-bg { background: rgba(0,0,0,0.6); }
-    /* Progress bar width for dashboard */
-    .dashboard-progress-90 { width: 90%; }
-  </style>
-</head>
-<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
-  <!-- Top Bar -->
-  <header class="flex items-center justify-between px-4 py-3 bg-gray-800 shadow z-20">
-    <div class="flex items-center gap-3">
-      <img src="/assets/logo.png" alt="RIFZA Logo" class="w-9 h-9 rounded-lg shadow" />
-      <span class="text-xl font-bold tracking-wide">RIFZA Dashboard</span>
-    </div>
-    <div class="flex items-center gap-4">
-      <span id="admin-email" class="hidden sm:inline text-sm text-gray-300"><i class="fa-solid fa-user-circle mr-1"></i> admin@example.com</span>
-      <img id="admin-avatar" src="https://i.pravatar.cc/40?u=admin" alt="Admin" class="w-8 h-8 rounded-full border-2 border-gray-700 shadow" />
-      <button id="logoutBtn" class="ml-2 px-3 py-1 rounded bg-red-600 hover:bg-red-700 text-white font-semibold text-sm transition"><i class="fa-solid fa-sign-out-alt"></i> <span class="hidden sm:inline">Logout</span></button>
-      <button id="sidebarToggle" class="ml-2 sm:hidden text-xl text-gray-300 focus:outline-none" title="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
-    </div>
-  </header>
-
-  <div class="flex flex-1 min-h-0">
-    <!-- Sidebar -->
-    <nav id="sidebar" class="sidebar-expanded flex flex-col bg-gray-800 border-r border-gray-700 transition-all duration-200 min-h-0 h-auto sm:h-auto z-10 fixed sm:static top-0 left-0 sm:relative sm:translate-x-0 w-56 sm:w-56 sm:min-w-[220px] sm:block overflow-y-auto pt-4 pb-8 px-2 sm:px-0">
-      <ul class="space-y-2">
-        <li><a href="#" data-section="dashboard" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 font-semibold bg-gray-700"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-        <li><a href="#" data-section="console" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"><i class="fa-solid fa-terminal"></i> Console</a></li>
-        <li><a href="#" data-section="players" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"><i class="fa-solid fa-users"></i> Players</a></li>
-        <li><a href="#" data-section="options" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"><i class="fa-solid fa-sliders"></i> Options</a></li>
-        <li><a href="#" data-section="status" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"><i class="fa-solid fa-server"></i> Status</a></li>
-        <li><a href="#" data-section="reports" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"><i class="fa-solid fa-flag"></i> Reports</a></li>
-        <li><a href="#" data-section="backups" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"><i class="fa-solid fa-database"></i> Backups</a></li>
-        <li><a href="#" data-section="ai" class="sidebar-link flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"><i class="fa-solid fa-robot"></i> AI Assistant</a></li>
-      </ul>
-    </nav>
-
-    <!-- Main Content -->
-    <main id="main-content" class="flex-1 flex flex-col min-w-0 ml-0 sm:ml-56 px-4 py-6 transition-all duration-200">
-      <!-- Dashboard Section (default) -->
-      <section id="dashboard-section" class="section">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-          <div class="bg-gray-800 rounded-xl p-5 shadow flex flex-col items-start">
-            <div class="text-2xl mb-2"><i class="fa-solid fa-circle text-green-500 animate-pulse"></i></div>
-            <div class="text-lg font-semibold">Server Status</div>
-            <div id="server-status" class="text-green-400 font-bold text-xl">Online</div>
-          </div>
-          <div class="bg-gray-800 rounded-xl p-5 shadow flex flex-col items-start">
-            <div class="text-2xl mb-2"><i class="fa-solid fa-users"></i></div>
-            <div class="text-lg font-semibold">Players Online</div>
-            <div id="players-online" class="font-bold text-xl">5 <span class="text-gray-400 text-base">(Steve, Alex, Notch, Herobrine, Builder)</span></div>
-          </div>
-          <div class="bg-gray-800 rounded-xl p-5 shadow flex flex-col items-start">
-            <div class="text-2xl mb-2"><i class="fa-solid fa-chart-line"></i></div>
-            <div class="text-lg font-semibold">Performance</div>
-            <div id="performance" class="font-bold text-xl">TPS: 19.8<br>CPU: 32%<br>RAM: 2.1GB</div>
-              <div class="bg-green-500 h-2 rounded dashboard-progress-90"></div>
-            <div class="w-full h-2 mt-2 bg-gray-700 rounded overflow-hidden">
-              <div class="bg-green-500 h-2 rounded dashboard-progress-90"></div>
-            </div>
-          </div>
-          <div class="bg-gray-800 rounded-xl p-5 shadow flex flex-col items-start">
-            <div class="text-2xl mb-2"><i class="fa-solid fa-shield-halved"></i></div>
-            <div class="text-lg font-semibold">Security Incidents Today</div>
-            <div id="security-incidents" class="font-bold text-xl">0</div>
-          </div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-6">
-          <div class="flex-1 bg-gray-800 rounded-xl p-6 shadow">
-            <div class="flex items-center justify-between mb-3">
-              <div class="font-semibold text-lg"><i class="fa-solid fa-chart-area mr-2"></i> TPS Trend</div>
-              <button id="boostBtn" class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-semibold transition"><i class="fa-solid fa-bolt"></i> Boost Server</button>
-            </div>
-            <div class="h-32 flex items-center justify-center text-gray-400">[TPS Graph Placeholder]</div>
-          </div>
-          <div class="flex-1 bg-gray-800 rounded-xl p-6 shadow">
-            <div class="font-semibold text-lg mb-3"><i class="fa-solid fa-memory mr-2"></i> Memory Usage</div>
-            <div class="h-32 flex items-center justify-center text-gray-400">[Memory Graph Placeholder]</div>
-          </div>
-        </div>
-      </section>
-      <!-- Other sections (hidden by default, shown via JS) -->
-      <section id="console-section" class="section hidden">
-        <div class="bg-gray-800 rounded-xl p-6 shadow h-64 flex items-center justify-center text-gray-400">[Console Placeholder]</div>
-      </section>
-      <section id="players-section" class="section hidden">
-        <div class="bg-gray-800 rounded-xl p-6 shadow h-64 flex items-center justify-center text-gray-400">[Players Placeholder]</div>
-      </section>
-      <section id="options-section" class="section hidden">
-        <div class="bg-gray-800 rounded-xl p-6 shadow h-64 flex items-center justify-center text-gray-400">[Options Placeholder]</div>
-      </section>
-      <section id="status-section" class="section hidden">
-        <div class="bg-gray-800 rounded-xl p-6 shadow h-64 flex items-center justify-center text-gray-400">[Status Placeholder]</div>
-      </section>
-      <section id="reports-section" class="section hidden">
-        <div class="bg-gray-800 rounded-xl p-6 shadow h-64 flex items-center justify-center text-gray-400">[Reports Placeholder]</div>
-      </section>
-      <section id="backups-section" class="section hidden">
-        <div class="bg-gray-800 rounded-xl p-6 shadow h-64 flex items-center justify-center text-gray-400">[Backups Placeholder]</div>
-      </section>
-      <section id="ai-section" class="section hidden">
-        <div class="bg-gray-800 rounded-xl p-6 shadow h-64 flex items-center justify-center text-gray-400">
-          <button id="openAIModal" class="px-4 py-2 rounded bg-purple-600 hover:bg-purple-700 text-white font-semibold transition"><i class="fa-solid fa-robot"></i> Open AI Assistant</button>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- AI Assistant Modal -->
-  <div id="aiModal" class="fixed inset-0 z-30 hidden items-center justify-center modal-bg">
-    <div class="bg-gray-900 rounded-xl shadow-lg p-6 w-full max-w-lg mx-2 relative">
-      <button id="closeAIModal" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-xl" title="Close AI Assistant Modal"><i class="fa-solid fa-times"></i></button>
-      <h2 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-robot"></i> AI Assistant</h2>
-      <form id="aiForm" class="flex gap-2">
-        <input id="aiInput" type="text" class="flex-1 rounded px-3 py-2 bg-gray-800 text-gray-100 border border-gray-700 focus:outline-none focus:border-purple-500" placeholder="Ask a command..." autocomplete="off" />
-        <button type="submit" class="px-4 py-2 rounded bg-purple-600 hover:bg-purple-700 text-white font-semibold transition">Send</button>
-      </form>
-      <div id="aiResponse" class="mt-4 text-gray-300 text-sm min-h-[40px]">[AI response will appear here]</div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-gray-400 text-xs py-3 px-4 flex flex-col sm:flex-row items-center justify-between mt-auto">
-    <div>
-      RIFZA Web v1.0 &copy; 2024
-    </div>
-    <div class="flex gap-3 mt-2 sm:mt-0">
-      <a href="https://discord.gg/yourdiscord" target="_blank" rel="noopener" class="hover:text-indigo-400"><i class="fa-brands fa-discord"></i> Discord</a>
-      <a href="https://docs.rifzamc.com" target="_blank" rel="noopener" class="hover:text-blue-400"><i class="fa-solid fa-book"></i> Docs</a>
-    </div>
-  </footer>
-
-  <!-- JS for navigation, modal, and placeholders -->
-  <script>
-    // Sidebar toggle for mobile
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggle = document.getElementById('sidebarToggle');
-    sidebarToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('sidebar-collapsed');
-    });
-
-    // Sidebar navigation
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('bg-gray-700'));
-        this.classList.add('bg-gray-700');
-        const section = this.getAttribute('data-section');
-        document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
-        document.getElementById(section + '-section').classList.remove('hidden');
-      });
-    });
-
-    // Logout button
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      // TODO: Add Firebase signOut logic here
-      window.location.href = "index.html";
-    });
-
-    // AI Assistant modal
-    const aiModal = document.getElementById('aiModal');
-    document.getElementById('openAIModal').addEventListener('click', () => {
-      aiModal.classList.remove('hidden');
-      aiModal.classList.add('flex');
-      document.getElementById('aiInput').focus();
-    });
-    document.getElementById('closeAIModal').addEventListener('click', () => {
-      aiModal.classList.add('hidden');
-      aiModal.classList.remove('flex');
-    });
-    document.getElementById('aiForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.getElementById('aiResponse').textContent = "[AI response placeholder]";
-      // TODO: Integrate with backend AI API
-    });
-
-    // Responsive sidebar for mobile
-    function handleResize() {
-      if(window.innerWidth < 640) {
-        sidebar.classList.add('sidebar-collapsed');
-      } else {
-        sidebar.classList.remove('sidebar-collapsed');
-      }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #232323;
+      color: #e0e0e0;
+      transition: background 0.3s, color 0.3s;
     }
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
 
-    // Placeholder: Set admin info (replace with Firebase Auth in production)
-    document.getElementById('admin-email').textContent = "admin@example.com";
-    document.getElementById('admin-avatar').src = "https://i.pravatar.cc/40?u=admin";
+    .wrapper {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      height: 100vh;
+      background: #232323;
+    }
+    .sidebar {
+      background: #2d2d2d;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0.7rem;
+      box-shadow: 2px 0 12px 0 #0002;
+      min-width: 140px;
+      max-width: 220px;
+    }
+    .sidebar .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1.2rem;
+      color: #bdbdbd;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #0003;
+      text-align: center;
+    }
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      padding: .5rem .7rem;
+      border-radius: .4rem;
+      margin-bottom: .3rem;
+      transition: background .2s, color .2s;
+      color: #e0e0e0;
+      font-weight: 500;
+      font-size: 0.97rem;
+    }
+    .sidebar nav a:hover {
+      background: #444;
+      color: #fff;
+    }
+    .sidebar nav i {
+      width: 1.1rem;
+      text-align: center;
+      margin-right: .55rem;
+      color: #bdbdbd;
+      transition: color .2s;
+      font-size: 1.05rem;
+    }
+    .sidebar nav a:hover i {
+      color: #fff;
+    }
+    .sidebar .ai {
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid #444;
+    }
+    .sidebar .ai a {
+      color: #bdbdbd;
+      font-weight: 600;
+      font-size: 0.97rem;
+      padding: .5rem .7rem;
+      border-radius: .4rem;
+      display: flex;
+      align-items: center;
+      margin-bottom: .2rem;
+    }
+    .sidebar .ai a:hover {
+      color: #fff;
+      background: #444;
+    }
+    .sidebar .ai .small-list {
+      margin-top: .4rem;
+      color: #bdbdbd !important;
+      font-size: 0.92rem;
+      padding-left: .7rem;
+    }
+    .sidebar .ai a:last-child {
+      margin-top: 0.7rem;
+      color: #f44336 !important;
+      font-weight: 600;
+    }
+    .sidebar .ai a:last-child:hover {
+      background: #3a2323;
+      color: #fff;
+    }
+
+    .main { display: flex; flex-direction: column; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 1rem;
+      background: #232323;
+      border-bottom: 1px solid #444;
+      box-shadow: 0 2px 8px 0 #0001;
+    }
+    .topbar .title {
+      color: #bdbdbd;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    .topbar .search { flex:1; margin: 0 0.7rem; }
+    .topbar input {
+      width:100%;
+      padding:.35rem .7rem;
+      border:none;
+      border-radius:.4rem;
+      background:#353535;
+      color:#e0e0e0;
+      font-size: 0.97rem;
+      transition: background .2s;
+    }
+    .topbar input:focus {
+      outline: 2px solid #bdbdbd;
+      background: #444;
+    }
+    .topbar .user {
+      display:flex;
+      align-items:center;
+      gap:.3rem;
+    }
+    .topbar .user img {
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      border: 2px solid #bdbdbd;
+      box-shadow: 0 2px 8px #0002;
+    }
+
+    .content {
+      padding: 1rem;
+      overflow-y: auto;
+      flex:1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      grid-auto-rows: minmax(100px, max-content);
+      gap: 1rem;
+      background: #232323;
+    }
+
+    .card {
+      background: #292929;
+      border-radius: 0.7rem;
+      padding: 0.9rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 12px 0 #0002;
+      border: 1px solid #353535;
+      transition: box-shadow .2s, border .2s;
+      min-width: 0;
+    }
+    .card:hover {
+      box-shadow: 0 6px 24px 0 #0004;
+      border: 1px solid #bdbdbd;
+    }
+    .card h3 {
+      font-size: 1rem;
+      color: #bdbdbd;
+      margin-bottom: .4rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .card p, .card ul, .card .value { margin-bottom: .4rem; }
+    .value {
+      font-size: 1.13rem;
+      font-weight: bold;
+      color: #e0e0e0;
+      letter-spacing: 1px;
+    }
+    .green { color: #4caf50 }
+    .red   { color: #f44336 }
+    .btn {
+      margin-top:auto;
+      padding:.5rem;
+      background:#bdbdbd;
+      color: #232323;
+      border:none;
+      border-radius:.4rem;
+      cursor:pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px #0002;
+      transition: background .2s, color .2s;
+      font-size: 0.97rem;
+    }
+    .btn:hover {
+      background:#fff;
+      color: #232323;
+    }
+    .logs {
+      font-family: monospace;
+      font-size:.9rem;
+      overflow-y:auto;
+      flex:1;
+      background:#232323;
+      border-radius:.4rem;
+      padding:.5rem;
+      color: #bdbdbd;
+      border: 1px solid #353535;
+    }
+    .small-list { font-size:.92rem; color: #bdbdbd; }
+    .graph-placeholder {
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#232323;
+      border-radius:.4rem;
+      color:#bdbdbd;
+      font-size: 1rem;
+      border: 1px dashed #bdbdbd;
+      margin-bottom: .4rem;
+    }
+    @media (max-width: 700px) {
+      .wrapper { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .main { width: 100vw; }
+      .content { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/a2d9a66b57.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">RIFZA</div>
+      <nav>
+        <a href="#"><i class="fas fa-home"></i>Home</a>
+        <a href="#"><i class="fas fa-terminal"></i>Console</a>
+        <a href="#"><i class="fas fa-users"></i>Players</a>
+        <a href="#"><i class="fas fa-list"></i>Options</a>
+        <a href="#"><i class="fas fa-circle"></i>Status</a>
+        <a href="#"><i class="fas fa-sync"></i>Backup</a>
+      </nav>
+      <div class="ai">
+        <a href="#"><i class="fas fa-robot"></i>AI Assistant</a>
+        <div class="small-list">admin@example.com</div>
+        <a href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
+      </div>
+    </aside>
+
+    <!-- Main panel -->
+    <div class="main">
+      <!-- Top bar -->
+      <header class="topbar">
+        <div class="title"><strong>RIFZA DASHBOARD</strong></div>
+        <div class="search">
+          <input type="text" placeholder="Search…">
+        </div>
+        <div class="user">
+          <img src="https://www.gravatar.com/avatar?d=mp" alt="Admin">
+        </div>
+      </header>
+
+      <!-- Content grid -->
+      <div class="content">
+        <!-- Server Status -->
+        <div class="card">
+          <h3>Server Status</h3>
+          <p class="value green">● Online</p>
+          <p>Time Played:</p>
+          <p class="value">14h 32m 45s</p>
+        </div>
+
+        <!-- Players Online -->
+        <div class="card">
+          <h3>Players Online</h3>
+          <p class="value">Currently 7</p>
+          <ul class="small-list">
+            <li>Aatiz1243</li>
+            <li>zayanamazing688</li>
+            <li>faizanterror68</li>
+            <li>DARCO_GAMER</li>
+            <li>xx6cutxx</li>
+          </ul>
+          <button class="btn">more…</button>
+        </div>
+
+        <!-- Performance -->
+        <div class="card" style="grid-row: span 2;">
+          <h3>Performance</h3>
+          <p><span class="value">TPS: 19.8</span> <span style="float:right;">CPU:45% | RAM:2.1GB</span></p>
+          <div class="graph-placeholder">[ Live Graph ]</div>
+          <button class="btn">Boosted</button>
+        </div>
+
+        <!-- Server Logs -->
+        <div class="card">
+          <h3>Server Logs</h3>
+          <div class="logs">
+            [17:03:12 INFO]: &lt;SenpaiHope552&gt; what is gravity…<br>
+            [17:03:19 INFO]: &lt;xx6cutxx&gt; this man speaking riddles<br>
+            [17:03:23 INFO]: &lt;phyco_game&gt; float mode: enabled<br>
+            [17:03:26 INFO]: &lt;Aatiz1243&gt; creative punishment coming up<br>
+            [17:03:33 INFO]: &lt;DARCO_GAMER&gt; obsidian cage, let’s go<br>
+            [17:03:38 WARN]: [CheatDetector] FlyHack flagged – SenpaiHope552<br>
+            [17:03:39 INFO]: [WebSync] Security incident logged
+          </div>
+        </div>
+
+        <!-- Security Status -->
+        <div class="card">
+          <h3>Security Status</h3>
+          <p class="value">2 Incidents</p>
+          <ul class="small-list">
+            <li>Player: SenpaiHope552</li>
+            <li>Issue: FlyHack detected</li>
+            <li>Action: Account flagged</li>
+          </ul>
+          <button class="btn">more…</button>
+        </div>
+
+        <!-- Options -->
+        <div class="card">
+          <h3>Options</h3>
+          <ul class="small-list">
+            <li>Max Players: 100</li>
+            <li>PvP Mode: Enabled</li>
+            <li>World Border: 5000</li>
+            <li>Weather: Clear</li>
+            <li>Day/Night: Enabled</li>
+            <li>Difficulty: Hard</li>
+          </ul>
+          <button class="btn">more…</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Placeholder where you would fetch & update real data:
+    // fetch('/api/stats').then(...)
   </script>
 </body>
 </html>
