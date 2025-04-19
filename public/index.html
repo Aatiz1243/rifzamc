@@ -5,17 +5,14 @@
   <title>RIFZA Admin Panel - Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
-  <!-- Apple-like font -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/sf-pro-display@latest/index.min.css">
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
   <script>
-    // Disable right-click, drag, select, copy/cut/paste
     ['contextmenu','dragstart','selectstart','copy','cut','paste'].forEach(ev =>
       document.addEventListener(ev, e => e.preventDefault())
     );
     document.querySelectorAll('[draggable="true"]').forEach(el => el.setAttribute('draggable', 'false'));
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCmI5AsAKDxpfat6SJa8zQ024ERc1HdCjo",
       authDomain: "rifzamc.firebaseapp.com",
