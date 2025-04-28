@@ -4,38 +4,54 @@
   <meta charset="UTF-8">
   <title>RIFZA Admin Panel - Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/sf-pro-display@latest/index.min.css">
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.png" type="image/x-icon">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
   <script>
+    // Disable right-click and prevent copying
     ['contextmenu','dragstart','selectstart','copy','cut','paste'].forEach(ev =>
       document.addEventListener(ev, e => e.preventDefault())
     );
-    document.querySelectorAll('[draggable="true"]').forEach(el => el.setAttribute('draggable', 'false'));
+
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyCmI5AsAKDxpfat6SJa8zQ024ERc1HdCjo",
       authDomain: "rifzamc.firebaseapp.com",
       projectId: "rifzamc",
-      storageBucket: "rifzamc.firebasestorage.app",
+      storageBucket: "rifzamc.appspot.com",
       messagingSenderId: "271925320929",
       appId: "1:271925320929:web:e0412bac89ceef1aaa2ba0",
       measurementId: "G-8M37J1K835"
     };
     firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
   </script>
 </head>
+
 <body class="login-page">
   <div class="login-container unique-login">
     <img src="assets/logo.png" alt="RIFZA Logo" class="logo animated-fadein" />
     <h1 class="login-title animated-slidein">RIFZA Admin Login</h1>
+    
     <form id="loginForm" autocomplete="off" class="animated-popin">
-      <input type="email" id="email" placeholder="Email" required class="login-input" autocomplete="off" autocorrect="off" spellcheck="false" />
-      <input type="password" id="password" placeholder="Password" required class="login-input" autocomplete="off" autocorrect="off" spellcheck="false" />
+      <input type="email" id="email" placeholder="Email" required class="login-input" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Email address" />
+      <input type="password" id="password" placeholder="Password" required class="login-input" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Password" />
       <button type="submit" class="login-btn">Login</button>
     </form>
-    <p id="error" class="error-text animated-fadein"></p>
+
+    <p id="error" class="error-text animated-fadein" aria-live="polite"></p>
   </div>
+
+  <!-- Auth Handler -->
   <script src="/js/auth.js"></script>
 </body>
 </html>
