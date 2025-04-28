@@ -236,6 +236,28 @@
     }
   </style>
   <script src="https://kit.fontawesome.com/a2d9a66b57.js" crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCmI5AsAKDxpfat6SJa8zQ024ERc1HdCjo",
+    authDomain: "rifzamc.firebaseapp.com",
+    projectId: "rifzamc",
+    storageBucket: "rifzamc.appspot.com",
+    messagingSenderId: "271925320929",
+    appId: "1:271925320929:web:e0412bac89ceef1aaa2ba0",
+    measurementId: "G-8M37J1K835"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  auth.onAuthStateChanged(user => {
+    if (!user) {
+      // User not logged in, boot them to login page
+      window.location.href = "/login.html";
+    }
+  });
+  </script>
 </head>
 <body>
   <div class="wrapper">
